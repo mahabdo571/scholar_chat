@@ -23,7 +23,12 @@ class ChatPage extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
 
-      body: ChatBuble(),
+      body: ListView.builder(
+        itemCount: 44,
+        itemBuilder: (ctx, i) {
+          return ChatBuble();
+        },
+      ),
     );
   }
 }
