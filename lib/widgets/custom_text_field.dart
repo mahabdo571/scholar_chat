@@ -9,8 +9,14 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       onChanged:onChanged ,
+      validator: (data){
+        if(data!.isEmpty){
+          return 'Please enter your $hintText';
+        }
+
+      },
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white),
