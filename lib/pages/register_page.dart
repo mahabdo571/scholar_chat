@@ -39,7 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: ListView(
                 children: [
                   const SizedBox(height: 75),
-                  Image.asset('assets/images/scholar.png', height: 100),
+                  Image.asset(kLogo, height: 100),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

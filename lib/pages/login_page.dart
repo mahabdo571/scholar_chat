@@ -40,7 +40,7 @@ class _RegisterPageState extends State<LoginPage> {
               child: ListView(
                 children: [
                   const SizedBox(height: 75),
-                  Image.asset('assets/images/scholar.png', height: 100),
+                  Image.asset(kLogo, height: 100),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -91,7 +91,7 @@ class _RegisterPageState extends State<LoginPage> {
 
                         try {
                           await loginUser(context);
-                            Navigator.pushNamed(context, ChatPage.routeId);
+                          Navigator.pushNamed(context, ChatPage.routeId);
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
                             showSnackBar(
@@ -151,6 +151,5 @@ class _RegisterPageState extends State<LoginPage> {
     UserCredential user = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email!, password: password!);
     showSnackBar(context, 'User login Successfully', Colors.green[400]!);
-    
   }
 }
