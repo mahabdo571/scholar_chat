@@ -60,14 +60,48 @@ class RegisterPage extends StatelessWidget {
               CustomButton(
                 title: "Register",
                 onTap: () async {
-                  var auth = FirebaseAuth.instance;
-                  UserCredential user = await auth
-                      .createUserWithEmailAndPassword(
-                        email: email!,
-                        password: password!,
-                      );
+                  try {
+                    UserCredential user = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                          email: email!,
+                          password: password!,
+                        );
 
-                  print(user.user?.uid);
+                    print(user.user?.uid);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('تم انشاء الحساب بنجاح'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'weak-password') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('The password provided is too weak.'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      print('The password provided is too weak.');
+                    } else if (e.code == 'email-already-in-use') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'The account already exists for that email.',
+                          ),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      print('The account already exists for that email.');
+                    }
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(e.toString()),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
               ),
               const SizedBox(height: 10),
