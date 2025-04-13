@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:scholar_chat/constants.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+  RegisterPage({super.key});
+
+  static String routeId = 'registerPage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0Xff2b475e),
+      backgroundColor: kPrimaryColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -50,11 +53,16 @@ class RegisterPage extends StatelessWidget {
                     'already have an account?',
                     style: TextStyle(color: Colors.white),
                   ),
-                  Text(
-                    ' Login',
-                    style: TextStyle(
-                      color: Color(0xffc7ede6),
-                      fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      ' Login',
+                      style: TextStyle(
+                        color: Color(0xffc7ede6),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],

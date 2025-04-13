@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scholar_chat/constants.dart';
 import 'package:scholar_chat/pages/register_page.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
@@ -6,29 +7,35 @@ import 'package:scholar_chat/widgets/custom_text_field.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
+  static String routeId = 'loginPage';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0Xff2b475e),
+      backgroundColor: kPrimaryColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
             children: [
-              Spacer(flex: 2),
-              Image.asset('assets/images/scholar.png'),
+              const SizedBox(height: 75),
+              Image.asset('assets/images/scholar.png', height: 100),
               const SizedBox(height: 20),
-              const Text(
-                'Scholar Chat',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Scholar Chat',
 
-                style: TextStyle(
-                  fontSize: 32,
-                  color: Colors.white,
-                  fontFamily: 'pacifico',
-                ),
+                    style: TextStyle(
+                      fontSize: 32,
+                      color: Colors.white,
+                      fontFamily: 'pacifico',
+                    ),
+                  ),
+                ],
               ),
-              Spacer(flex: 2),
+              const SizedBox(height: 75),
               Row(
                 children: [
                   const Text(
@@ -53,14 +60,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (ctx) {
-                            return RegisterPage();
-                          },
-                        ),
-                      );
+                      Navigator.pushNamed(context, RegisterPage.routeId);
                     },
                     child: Text(
                       ' Register',
@@ -72,7 +72,6 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(flex: 3),
             ],
           ),
         ),
