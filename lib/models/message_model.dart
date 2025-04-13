@@ -8,6 +8,14 @@ class MessageModel {
 
   MessageModel({this.email, this.message, this.timestamp});
 
+  Map<String, dynamic> toJson() {
+    return {
+      kMessageEmail: email,
+      kMessageText: message,
+      kMessageTimestamp: timestamp?.toIso8601String(),
+    };
+  }
+
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
       email: json[kMessageEmail],

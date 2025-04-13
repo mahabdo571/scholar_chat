@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:scholar_chat/constants.dart';
+import 'package:scholar_chat/models/message_model.dart';
 import 'package:scholar_chat/widgets/chat_buble.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,7 +46,10 @@ class ChatPage extends StatelessWidget {
             child: TextField(
               controller: messageController,
               onSubmitted: (value) {
-                message.add({'message': value, 'createdAt': Timestamp.now()});
+                message.add({
+                  kMessageText: value,
+                  kMessageTimestamp: FieldValue.serverTimestamp(),
+                });
                 messageController.clear();
               },
               decoration: InputDecoration(
