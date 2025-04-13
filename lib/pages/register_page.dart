@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/constants.dart';
+import 'package:scholar_chat/helper/show_snackbar.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
 
@@ -64,14 +65,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  CustomTextField(
+                  CustomTextFromField(
                     hintText: "Email",
                     onChanged: (value) {
                       email = value;
                     },
                   ),
                   const SizedBox(height: 10),
-                  CustomTextField(
+                  CustomTextFromField(
                     hintText: "Password",
                     onChanged: (value) {
                       password = value;
@@ -105,13 +106,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         } catch (e) {
                           showSnackBar(context, e.toString(), Colors.red);
                         }
-                          isLoading = false;
-                      setState(() {});
+                        isLoading = false;
+                        setState(() {});
                       } else {
                         return;
                       }
-
-                    
                     },
                   ),
                   const SizedBox(height: 10),
@@ -143,12 +142,6 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
-  }
-
-  void showSnackBar(BuildContext context, String message, Color color) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message), backgroundColor: color));
   }
 
   Future<void> registerUser(BuildContext context) async {
