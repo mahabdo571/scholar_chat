@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:scholar_chat/pages/register_page.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class LoginPage extends StatelessWidget {
               Row(
                 children: [
                   const Text(
-                    'LOGIN',
+                    'Register',
                     style: TextStyle(fontSize: 24, color: Colors.white),
                   ),
                 ],
@@ -42,32 +41,20 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 10),
               CustomTextField(hintText: "Password"),
               const SizedBox(height: 20),
-              CustomButton(title: "Login"),
+              CustomButton(title: "Register"),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'dont\'t have an account?',
+                    'already have an account?',
                     style: TextStyle(color: Colors.white),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (ctx) {
-                            return RegisterPage();
-                          },
-                        ),
-                      );
-                    },
-                    child: Text(
-                      ' Register',
-                      style: TextStyle(
-                        color: Color(0xffc7ede6),
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    ' Login',
+                    style: TextStyle(
+                      color: Color(0xffc7ede6),
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
