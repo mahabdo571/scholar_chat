@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.title});
+  CustomButton({super.key, required this.title, this.onTap});
   final String title;
+  VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text(title)),
-      width: double.infinity,
-      height: 60,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        child: Center(child: Text(title)),
+        width: double.infinity,
+        height: 60,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
       ),
     );
   }
