@@ -61,46 +61,23 @@ class RegisterPage extends StatelessWidget {
                 title: "Register",
                 onTap: () async {
                   try {
-                    UserCredential user = await FirebaseAuth.instance
-                        .createUserWithEmailAndPassword(
-                          email: email!,
-                          password: password!,
-                        );
-
-                    print(user.user?.uid);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('تم انشاء الحساب بنجاح'),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
+                    await registerUser(context);
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'weak-password') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('The password provided is too weak.'),
-                          backgroundColor: Colors.red,
-                        ),
+                      showSnackBar(
+                        context,
+                        'The password provided is too weak.',
+                        Colors.red,
                       );
-                      print('The password provided is too weak.');
                     } else if (e.code == 'email-already-in-use') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'The account already exists for that email.',
-                          ),
-                          backgroundColor: Colors.red,
-                        ),
+                      showSnackBar(
+                        context,
+                        'The account already exists for that email.',
+                        Colors.red,
                       );
-                      print('The account already exists for that email.');
                     }
                   } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(e.toString()),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                    showSnackBar(context, e.toString(), Colors.red);
                   }
                 },
               ),
@@ -132,5 +109,17 @@ class RegisterPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void showSnackBar(BuildContext context, String message, Color color) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message), backgroundColor: color));
+  }
+
+  Future<void> registerUser(BuildContext context) async {
+    UserCredential user = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email!, password: password!);
+    showSnackBar(context, 'User Created Successfully', Colors.green[400]!);
   }
 }
