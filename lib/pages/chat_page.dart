@@ -64,7 +64,8 @@ class _ChatPageState extends State<ChatPage> {
                       snapshot.data!.docs.map((DocumentSnapshot document) {
                         Map<String, dynamic> data =
                             document.data()! as Map<String, dynamic>;
-                        return ChatBuble(message: data[kMessageText]);
+                        return ChatBuble(message: data[kMessageText],
+                        isFriend:email != data[kMessageEmail]);
                       }).toList(),
                 );
               },
