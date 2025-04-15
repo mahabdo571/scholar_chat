@@ -7,7 +7,7 @@ const kPrimaryColor = Color(0Xff2b475e);
 const kLogo = 'assets/images/scholar.png';
 
 //fierstore
-const kMessageCollection = 'message';
+const kMessagesCollection = 'messages';
 const kMessageText = 'message';
 const kMessageEmail = 'email';
 const kMessageTimestamp = 'timestamp';

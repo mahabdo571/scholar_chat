@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:scholar_chat/constants.dart';
 
 class ChatBuble extends StatelessWidget {
-  const ChatBuble({super.key});
+  const ChatBuble({super.key,required this.message});
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ChatBuble extends StatelessWidget {
           ),
         ),
         child: Text(
-          "test test  testtesttesttesttesttesttest test ",
+          message,
           style: TextStyle(color: Colors.white, fontSize: 16),
         ),
       ),

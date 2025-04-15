@@ -91,7 +91,11 @@ class _RegisterPageState extends State<LoginPage> {
 
                         try {
                           await loginUser(context);
-                          Navigator.pushNamed(context, ChatPage.routeId);
+                          Navigator.pushNamed(
+                            context,
+                            ChatPage.routeId,
+                            arguments: email,
+                          );
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
                             showSnackBar(

@@ -7,15 +7,29 @@ import 'package:scholar_chat/widgets/chat_buble.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   static String routeId = 'chatPage';
-  CollectionReference message = FirebaseFirestore.instance.collection(
-    kMessageCollection,
-  );
-  TextEditingController messageController = TextEditingController();
 
   @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  CollectionReference messageCollection = FirebaseFirestore.instance.collection(
+    kMessagesCollection,
+  );
+
+  TextEditingController messageController = TextEditingController();
+
+  final _controller = ScrollController();
+  @override
   Widget build(BuildContext context) {
+    var email = ModalRoute.of(context)!.settings.arguments;
+    final Stream<QuerySnapshot> _usersStream =
+        messageCollection
+            .orderBy(kMessageTimestamp, descending: true)
+            .snapshots();
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -33,11 +47,26 @@ class ChatPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              reverse: true,
-              itemCount: 44,
-              itemBuilder: (ctx, i) {
-                return ChatBuble();
+            child: StreamBuilder<QuerySnapshot>(
+              stream: _usersStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong');
+                }
+
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text("Loading");
+                }
+                return ListView(
+                  controller: _controller,
+                  reverse: true,
+                  children:
+                      snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return ChatBuble(message: data[kMessageText]);
+                      }).toList(),
+                );
               },
             ),
           ),
@@ -46,11 +75,17 @@ class ChatPage extends StatelessWidget {
             child: TextField(
               controller: messageController,
               onSubmitted: (value) {
-                message.add({
+                messageCollection.add({
                   kMessageText: value,
                   kMessageTimestamp: FieldValue.serverTimestamp(),
+                  kMessageEmail: email,
                 });
                 messageController.clear();
+                _controller.animateTo(
+                  0,
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.easeInOut,
+                );
               },
               decoration: InputDecoration(
                 hintText: 'Type your message...',
